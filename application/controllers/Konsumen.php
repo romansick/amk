@@ -65,6 +65,36 @@ class Konsumen extends CI_Controller
         $this->load->view('konsumen/transaksi', $data);
         $this->load->view('template/footer', $data);
     }
+    public function view_invoice($id)
+    {
+        $data['title'] = 'Invoice';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->model('Konsumen_model');
+        $data['invoice'] = $this->Konsumen_model->getInvoice($id);
+
+        $this->load->view('template/head', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('konsumen/invoice', $data);
+        $this->load->view('template/footer', $data);
+    }
+    public function checkout($id)
+    {
+        $data['title'] = 'Lanjutkan Pembayaran';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->model('Konsumen_model');
+        $data['check'] = $this->Konsumen_model->getCheckout($id);
+        $data['bank'] = $this->db->get_where('bank', ['is_active' => 1])->result_array();
+        $data['order'] = $this->Konsumen_model->order($id);
+
+        $this->load->view('template/head', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('konsumen/checkout', $data);
+        $this->load->view('template/footer', $data);
+    }
     public function beli($id)
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -101,6 +131,7 @@ class Konsumen extends CI_Controller
     {
         $this->form_validation->set_rules('metode_id', 'Metode', 'required');
 
+        $kode_transaksi = $this->input->post('kode_transaksi');
         $metode_id = $this->input->post('metode_id');
         $user_id   = $this->input->post('user_id');
         $harga_rumah = $this->input->post('harga_rumah');
@@ -109,6 +140,7 @@ class Konsumen extends CI_Controller
         $status_pembayaran     = 'Pending';
         $date_created = time();
 
+        $this->db->set('kode_transaksi', $kode_transaksi);
         $this->db->set('metode_id', $metode_id);
         $this->db->set('user_id', $user_id);
         $this->db->set('harga_rumah', $harga_rumah);
@@ -123,6 +155,45 @@ class Konsumen extends CI_Controller
             '<div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
                     <i class="mdi mdi-check-all mr-2"></i>
                     Metode Pembayarn Berhasil Disimpan. Silahkan selesaikan pembayaran
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>'
+        );
+        redirect('konsumen/transaksi');
+    }
+    public function buktibayar()
+    {
+        $tanggal_bayar = time();
+        $bank_id = $this->input->post('bank_id');
+        // cek jika ada gambar yang akan diupload
+        $upload_image = $_FILES['image']['name'];
+
+        if ($upload_image) {
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['max_size']      = '5048';
+            $config['upload_path'] = './bukti/';
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('image')) {
+                $new_image = $this->upload->data('file_name');
+                $this->db->set('image', $new_image);
+            } else {
+                echo $this->upload->display_errors();
+            }
+        }
+        $this->db->set('bank_id', $bank_id);
+        $this->db->set('tanggal_bayar', $tanggal_bayar);
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('metode_bayar');
+
+
+        $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+                    <i class="mdi mdi-check-all mr-2"></i>
+                    Bukti Pembayaran Berhasil Diupload
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                        <span aria-hidden="true">&times;</span>
                         </button>

@@ -346,6 +346,9 @@ class Administrator extends CI_Controller
         $data['title'] = 'Data Transaksi';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+        $this->load->model('Admin_model');
+        $data['bayar'] = $this->Admin_model->getTransaksi();
+
         $this->load->view('template/head', $data);
         $this->load->view('template/topbar', $data);
         $this->load->view('template/sidebar', $data);

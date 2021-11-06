@@ -37,32 +37,96 @@
                             <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>NO</th>
-                                        <th>JUDUL</th>
-                                        <th>MENU</th>
-                                        <th>ACTIVE</th>
-                                        <th>ACTION</th>
+                                        <th>Kode Transaksi</th>
+                                        <th>Konsumen</th>
+                                        <th>Tanggal Pemesanan</th>
+                                        <th>Tanggal Pembayaran</th>
+                                        <th>Bukti Pembayaran</th>
+                                        <th>Status Pembayaran</th>
+                                        <th>Aksi</th>
                                 </thead>
 
                                 <tbody>
-                                    <tr>
-                                        <td><?= $i; ?></td>
-                                        <td> <?= $sm['judul']; ?></td>
-                                        <td> <?= $sm['menu']; ?></td>
-                                        <td>
-                                            <!-- <?php if ($sm['is_active'] == 1) : ?> -->
-                                            <span class="badge badge-success">Aktif</span>
-                                            <!-- <?php else : ?> -->
-                                            <!-- <span class="badge badge-danger">Non Aktif</span> -->
-                                            <!-- <?php endif; ?> -->
-                                        </td>
-                                        <td>
+                                    <?php foreach ($bayar as $b) : ?>
+                                        <tr>
+                                            <td><?= $b['kode_transaksi']; ?></td>
+                                            <td> <?= $b['nama']; ?></td>
+                                            <td><?= date('d F Y', $b['date_created']); ?></td>
+                                            <td><?= date('d-F-Y', $b['tanggal_bayar']); ?></td>
+                                            <td>
+                                                <?php if ($b['image'] == null) : ?>
+                                                    <!-- Button trigger modal -->
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Data Pembayaran Tidak Ditemukan!
+                                                    </div>
+                                                <?php else : ?>
+                                                    <button type="button" class="btn btn-success btn-sm btn-rounded" data-toggle="modal" data-target=".exampleModal">
+                                                        Bukti Pembayaran
+                                                    </button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Bukti Pembayaran</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p class="mb-2">Kode Transaksi: <span class="text-primary"><?= $b['kode_transaksi']; ?></span></p>
+                                                                    <p class="mb-2">Rekening Transfer: <span class="text-primary"><?= $b['nama_bank']; ?> - <?= $b['no_rek']; ?> [ <?= $b['nama_pemilik']; ?> ]</span></p>
 
-                                            <button type="button" class="btn btn-warning btn-sm waves-effect btn-label waves-light"><i class="bx bx-edit label-icon "></i> Edit</button>
-                                            <!-- <a href="<?= base_url('menu/delete_submenu/') . $sm['id']; ?>" type="button" class="btn btn-danger btn-sm waves-effect btn-label waves-light"><i class="bx bx-trash-alt label-icon "></i> Delete</a> -->
-
-                                        </td>
-                                    </tr>
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-centered table-nowrap">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Bukti Pembayaran</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <th scope="row">
+                                                                                        <div>
+                                                                                            <img src="<?= base_url('/bukti/') . $b['image']; ?>" alt="" class="img-fluid">
+                                                                                        </div>
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <?php if ($b['status_pembayaran'] === 'Berhasil') : ?>
+                                                    <span class="badge badge-success"><?= $b['status_pembayaran']; ?></span>
+                                                <?php else : ?>
+                                                    <span class="badge badge-warning"><?= $b['status_pembayaran']; ?></span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <?php if ($b['status_pembayaran'] === 'Berhasil') : ?>
+                                                    <a href="<?= base_url('transaksi/view_invoice/') . $b['id']; ?>" type="button" class="btn btn-success btn-sm waves-effect waves-light">
+                                                        <i class="bx bx-printer font-size-16 align-middle mr-2"></i> Invoice
+                                                    </a>
+                                                <?php else : ?>
+                                                    <a href="<?= base_url('transaksi/terima/') . $b['id']; ?>" class="btn btn-success btn-sm waves-effect waves-light">
+                                                        <i class="bx bx-check-double font-size-16 align-middle mr-2"></i> Terima
+                                                    </a>
+                                                    <button type="button" class="btn btn-danger btn-sm waves-effect waves-light">
+                                                        <i class="bx bx-block font-size-16 align-middle mr-2"></i> Tolak
+                                                    </button>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
 

@@ -27,9 +27,9 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <form action="<?= base_url('konsumen/save_metode'); ?>" method="post">\
-                                    <input type="date" name="date_created">
+                                <form action="<?= base_url('konsumen/save_metode'); ?>" method="post">
                                     <input type="hidden" name="user_id" value="<?= $user['id']; ?>">
+                                    <input type="hidden" name="kode_transaksi" value="AMKT<?= $rumah['tipe_id']; ?>U<?= $user['id']; ?>">
                                     <input type="hidden" name="rumah_id" value="<?= $rumah['id']; ?>">
                                     <table class="table table-centered mb-0 table-nowrap">
                                         <thead class="thead-light">
@@ -62,7 +62,6 @@
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </td>
-
                                             </tr>
                                         </tbody>
                                     </table>
