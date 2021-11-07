@@ -75,12 +75,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="invoice-ribbon">
-                                <?php if ($invoice['status_pembayaran'] == 'Pending') : ?>
-                                    <div class="ribbon-inner danger">UNPAID</div>
-                                <?php elseif ($invoice['status_pembayaran'] == 'Berhasil') : ?>
+                                <?php if ($invoice['status_pembayaran'] ==  'Berhasil') : ?>
                                     <div class="ribbon-inner">PAID</div>
                                 <?php else : ?>
-                                    <div class="ribbon-inner danger">FAILED</div>
+                                    <div class="ribbon-inner danger">UNPAID</div>
                                 <?php endif; ?>
                             </div>
                             <div class="invoice-title">
@@ -108,8 +106,12 @@
                                 </div>
                                 <div class="col-sm-6 mt-3 text-sm-right">
                                     <address>
-                                        <strong>Tanggal Pemesanan:</strong><br>
-                                        <?= date('d F Y', $invoice['date_created']); ?><br>
+                                        <strong>Tanggal Pembayaran:</strong><br>
+                                        <?php if (is_null($invoice['tanggal_bayar'])) : ?>
+                                            <p class="text-danger">Data Pembayaran Tidak Ditemukan!</p>
+                                        <?php elseif ($invoice['tanggal_bayar']) : ?>
+                                            <?= date('d F Y', $invoice['tanggal_bayar']); ?>
+                                        <?php endif; ?>
                                     </address>
                                 </div>
                             </div>

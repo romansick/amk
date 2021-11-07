@@ -42,7 +42,7 @@
                                         <th>Tanggal Pemesanan</th>
                                         <th>Tanggal Pembayaran</th>
                                         <th>Bukti Pembayaran</th>
-                                        <th>Status Pembayaran</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
                                 </thead>
 
@@ -52,19 +52,27 @@
                                             <td><?= $b['kode_transaksi']; ?></td>
                                             <td> <?= $b['nama']; ?></td>
                                             <td><?= date('d F Y', $b['date_created']); ?></td>
-                                            <td><?= date('d-F-Y', $b['tanggal_bayar']); ?></td>
+                                            <td>
+                                                <?php if ($b['tanggal_bayar'] === null) : ?>
+                                                    <p class="text-danger">Tidak Ditemukan</p>
+                                                <?php else : ?>
+                                                    <?= date('d F Y', $b['tanggal_bayar']); ?>
+                                                <?php endif; ?>
+                                            </td>
                                             <td>
                                                 <?php if ($b['image'] == null) : ?>
-                                                    <!-- Button trigger modal -->
-                                                    <div class="alert alert-danger" role="alert">
-                                                        Data Pembayaran Tidak Ditemukan!
-                                                    </div>
+                                                    <p class="text-danger">
+                                                        Tidak Ditemukan!
+                                                    </p>
                                                 <?php else : ?>
-                                                    <button type="button" class="btn btn-success btn-sm btn-rounded" data-toggle="modal" data-target=".exampleModal">
+                                                    <div class="popup">
+                                                        <img src="<?= base_url('bukti/') . $b['image']; ?>" class="img-fluid">
+                                                    </div>
+                                                    <!-- <button type="button" class="btn btn-success btn-sm btn-rounded" data-toggle="modal" data-target=".exampleModal">
                                                         Bukti Pembayaran
-                                                    </button>
+                                                    </button> -->
                                                     <!-- Modal -->
-                                                    <div class="modal fade exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <!-- <div class="modal fade exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -74,8 +82,6 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p class="mb-2">Kode Transaksi: <span class="text-primary"><?= $b['kode_transaksi']; ?></span></p>
-                                                                    <p class="mb-2">Rekening Transfer: <span class="text-primary"><?= $b['nama_bank']; ?> - <?= $b['no_rek']; ?> [ <?= $b['nama_pemilik']; ?> ]</span></p>
 
                                                                     <div class="table-responsive">
                                                                         <table class="table table-centered table-nowrap">
@@ -88,7 +94,7 @@
                                                                                 <tr>
                                                                                     <th scope="row">
                                                                                         <div>
-                                                                                            <img src="<?= base_url('/bukti/') . $b['image']; ?>" alt="" class="img-fluid">
+                                                                                            <img src="<?= base_url('bukti/') . $b['image']; ?>" alt="" class="img-fluid">
                                                                                         </div>
                                                                                     </th>
                                                                                 </tr>
@@ -101,7 +107,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 <?php endif; ?>
                                             </td>
                                             <td>
@@ -136,4 +142,11 @@
             </div> <!-- end row -->
 
         </div> <!-- container-fluid -->
+    </div>
+    <div class="show">
+        <div class="overlay"></div>
+        <div class="img-show">
+            <span>x</span>
+            <img src="">
+        </div>
     </div>

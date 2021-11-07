@@ -29,7 +29,7 @@
                             <div class="table-responsive">
                                 <form action="<?= base_url('konsumen/save_metode'); ?>" method="post">
                                     <input type="hidden" name="user_id" value="<?= $user['id']; ?>">
-                                    <input type="hidden" name="kode_transaksi" value="AMKT<?= $rumah['tipe_id']; ?>U<?= $user['id']; ?>">
+                                    <input type="hidden" name="kode_transaksi" value="AMKT<?= $rumah['tipe_id']; ?>U<?= $user['id']; ?><?= $rumah['id']; ?>">
                                     <input type="hidden" name="rumah_id" value="<?= $rumah['id']; ?>">
                                     <table class="table table-centered mb-0 table-nowrap">
                                         <thead class="thead-light">
@@ -44,6 +44,7 @@
                                             <tr>
                                                 <td>
                                                     <img src="<?= base_url('/rumah/') . $rumah['image']; ?>" alt="product-img" title="product-img" class="avatar-md">
+
                                                 </td>
                                                 <td>
                                                     <h5 class="font-size-14 text-truncate"><a href="ecommerce-product-detail.html" class="text-dark"><?= $rumah['kategori']; ?></a></h5>

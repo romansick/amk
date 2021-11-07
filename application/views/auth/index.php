@@ -39,7 +39,7 @@
 
                 <div class="ml-lg-2">
                     <a href="<?= base_url('auth/register'); ?>" class="btn btn-outline-success w-xs">Sign Up</a>
-                    <a href="#" class="btn btn-outline-success w-xs">Sign in</a>
+                    <a href="<?= base_url('auth/login'); ?>" class="btn btn-outline-success w-xs">Sign in</a>
                 </div>
             </div>
         </div>

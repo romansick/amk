@@ -57,7 +57,8 @@ class Konsumen extends CI_Controller
         $this->load->model('Konsumen_model');
         $data['title'] = 'Transaksi';
 
-        $data['bayar'] = $this->Konsumen_model->getTransaksi();
+        // $data['bayar'] = $this->Konsumen_model->getTransaksi();
+        $data['bayar'] = $this->Konsumen_model->getNew();
 
         $this->load->view('template/head', $data);
         $this->load->view('template/topbar', $data);
@@ -170,7 +171,7 @@ class Konsumen extends CI_Controller
         $upload_image = $_FILES['image']['name'];
 
         if ($upload_image) {
-            $config['allowed_types'] = 'gif|jpg|png';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
             $config['max_size']      = '5048';
             $config['upload_path'] = './bukti/';
 

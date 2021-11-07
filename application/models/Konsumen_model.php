@@ -24,12 +24,21 @@ class Konsumen_model extends CI_Model
     }
     public function getTransaksi()
     {
-        $user = $this->session->userdata('id');
-        $query = "SELECT `metode_bayar`.*, `metode_transaksi`.`metode`, `user`.`nama`, `bank`.`nama_bank`, `bank`.`no_rek`, `bank`.`nama_pemilik`
+        $query = "SELECT `metode_bayar`.*, `metode_transaksi`.`metode`, `user`.`nama`, `bank`.`no_rek`
                   FROM `metode_bayar` 
-                  JOIN `metode_transaksi` ON `metode_transaksi`.`id` = `metode_bayar`.`metode_id`
-                  JOIN `user` ON `user`.`id` = `metode_bayar`.`user_id`
-                  JOIN `bank` ON `bank`.`id` = `metode_bayar`.`bank_id`";
+                  INNER JOIN `metode_transaksi` ON `metode_transaksi`.`id` = `metode_bayar`.`metode_id`
+                  INNER JOIN `user` ON `user`.`id` = `metode_bayar`.`user_id`
+                  INNER JOIN `bank` ON `bank`.`id` = `metode_bayar`.`bank_id`
+                  WHERE `metode_bayar`.`user_id` = `user`.`id`";
+        return $this->db->query($query)->result_array();
+    }
+    public function getNew()
+    {
+        $query = "SELECT `metode_bayar`.*, `metode_transaksi`.`metode`, `user`.`nama`
+                  FROM `metode_bayar`
+                  INNER JOIN `metode_transaksi` ON `metode_transaksi`.`id` = `metode_bayar`.`metode_id`
+                  INNER JOIN `user` ON `user`.`id` = `metode_bayar`.`user_id`
+                  WHERE `metode_bayar`.`user_id` = `user`.`id`";
         return $this->db->query($query)->result_array();
     }
     public function getInvoice($id)
