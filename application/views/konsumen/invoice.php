@@ -2,51 +2,6 @@
 <!-- Start right Content here -->
 <!-- ============================================================== -->
 
-<style>
-    .invoice-ribbon {
-        width: 85px;
-        height: 88px;
-        overflow: hidden;
-        position: absolute;
-        top: -1px;
-        right: 14px;
-    }
-
-    .ribbon-inner {
-        text-align: center;
-        -webkit-transform: rotate(45deg);
-        -moz-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        -o-transform: rotate(45deg);
-        position: relative;
-        padding: 7px 0;
-        left: -5px;
-        top: 11px;
-        width: 120px;
-        background-color: #66c591;
-        font-size: 15px;
-        color: #fff;
-    }
-
-    .danger {
-
-        background-color: red;
-    }
-
-    .ribbon-inner:before,
-    .ribbon-inner:after {
-        content: "";
-        position: absolute;
-    }
-
-    .ribbon-inner:before {
-        left: 0;
-    }
-
-    .ribbon-inner:after {
-        right: 0;
-    }
-</style>
 <div class="main-content">
 
     <div class="page-content">
@@ -74,6 +29,52 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
+
+                            <style>
+                                .invoice-ribbon {
+                                    width: 85px;
+                                    height: 88px;
+                                    overflow: hidden;
+                                    position: absolute;
+                                    top: -1px;
+                                    right: 14px;
+                                }
+
+                                .ribbon-inner {
+                                    text-align: center;
+                                    -webkit-transform: rotate(45deg);
+                                    -moz-transform: rotate(45deg);
+                                    -ms-transform: rotate(45deg);
+                                    -o-transform: rotate(45deg);
+                                    position: relative;
+                                    padding: 7px 0;
+                                    left: -5px;
+                                    top: 11px;
+                                    width: 120px;
+                                    background-color: #66c591;
+                                    font-size: 15px;
+                                    color: #fff;
+                                }
+
+                                .danger {
+
+                                    background-color: red;
+                                }
+
+                                .ribbon-inner:before,
+                                .ribbon-inner:after {
+                                    content: "";
+                                    position: absolute;
+                                }
+
+                                .ribbon-inner:before {
+                                    left: 0;
+                                }
+
+                                .ribbon-inner:after {
+                                    right: 0;
+                                }
+                            </style>
                             <div class="invoice-ribbon">
                                 <?php if ($invoice['status_pembayaran'] ==  'Berhasil') : ?>
                                     <div class="ribbon-inner">PAID</div>
@@ -169,7 +170,7 @@
                             <div class="d-print-none">
                                 <div class="float-right">
                                     <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light mr-1"><i class="fa fa-print"></i></a>
-                                    <a href="#" class="btn btn-primary w-md waves-effect waves-light">Send</a>
+                                    <!-- <a href="#" class="btn btn-primary w-md waves-effect waves-light">Send</a> -->
                                 </div>
                             </div>
                         </div>

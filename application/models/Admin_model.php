@@ -41,4 +41,10 @@ class Admin_model extends CI_Model
                   WHERE `metode_bayar`.`id` = $id";
         return $this->db->query($query)->row_array();
     }
+    public function getUser()
+    {
+        $query = "SELECT `user`.*, `user_role`.`role`
+                  FROM `user` JOIN `user_role` ON `user_role`.`id` = `user`.`role_id`";
+        return $this->db->query($query)->result_array();
+    }
 }

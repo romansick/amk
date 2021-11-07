@@ -333,13 +333,47 @@ class Administrator extends CI_Controller
     public function user()
     {
         $data['title'] = 'User Management';
+        $this->load->model('Admin_model');
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['role'] = $this->db->get('user_role')->result_array();
+        $data['getuser'] = $this->Admin_model->getUser();
 
         $this->load->view('template/head', $data);
         $this->load->view('template/topbar', $data);
         $this->load->view('template/sidebar', $data);
         $this->load->view('admin/user', $data);
         $this->load->view('template/footer', $data);
+    }
+    public function adduser()
+    {
+        $this->form_validation->set_rules('email', 'Email', 'trim|required');
+        $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
+        $this->form_validation->set_rules('role_id', 'Role', 'trim|required');
+        $this->form_validation->set_rules('no_hp', 'No Hp', 'trim|required');
+
+        $data = [
+            'email' => $this->input->post('email'),
+            'nama' => $this->input->post('nama'),
+            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+            'role_id' => $this->input->post('role_id'),
+            'image' => 'default.png',
+            'no_hp' => $this->input->post('no_hp'),
+            'is_active' => 1,
+            'date_created' => time()
+        ];
+        $this->db->insert('user', $data);
+
+        $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-success alert-dismissible fade show" id="alert" role="alert">
+                            <i class="mdi mdi-bullseye-arrow mr-2"></i>
+                              User Berhasil Ditambahkan
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                </div>'
+        );
+        redirect('administrator/user');
     }
     public function transaksi()
     {

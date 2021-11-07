@@ -1,7 +1,62 @@
 <!-- ============================================================== -->
 <!-- Start right Content here -->
 <!-- ============================================================== -->
+<style>
+    .popup {
+        width: 60px;
+        margin: auto;
+        text-align: left
+    }
 
+    .popup img {
+        width: 50px;
+        height: 50px;
+        cursor: pointer
+    }
+
+    .show {
+        z-index: 999;
+        display: none;
+    }
+
+    .show .overlay {
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .66);
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .show .img-show {
+        width: 600px;
+        height: 400px;
+        background: #FFF;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        overflow: hidden
+    }
+
+    .img-show span {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 99;
+        cursor: pointer;
+    }
+
+    .img-show img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    /*End style*/
+</style>
 <div class="main-content">
 
     <div class="page-content">
@@ -71,6 +126,8 @@
                                                         <td class="text-center">
                                                             <?php if ($b['status_pembayaran'] == 'Pending') : ?>
                                                                 <span class="badge badge-pill badge-soft-warning font-size-12"><?= $b['status_pembayaran']; ?></span>
+                                                            <?php elseif ($b['status_pembayaran'] === 'Gagal') : ?>
+                                                                <span class="badge badge-pill badge-soft-danger font-size-12"><?= $b['status_pembayaran']; ?></span>
                                                             <?php else : ?>
                                                                 <span class="badge badge-pill badge-soft-success font-size-12"><?= $b['status_pembayaran']; ?></span>
                                                             <?php endif; ?>

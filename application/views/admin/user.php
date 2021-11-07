@@ -32,7 +32,7 @@
                             <div class="d-flex align-items-center justify-content-between mb-3">
                                 <h4 class="card-title"><?= $title; ?></h4>
                                 <div>
-                                    <button type="button" class="btn btn-primary btn-sm waves-effect btn-label waves-light" data-toggle="modal" data-target="#myModal"><i class="bx bx-plus label-icon"></i> Tambah Sub Menu</button>
+                                    <button type="button" class="btn btn-primary btn-sm waves-effect btn-label waves-light" data-toggle="modal" data-target="#myModal"><i class="bx bx-plus label-icon"></i> Tambah User</button>
                                 </div>
                             </div>
 
@@ -40,36 +40,36 @@
                                 <thead>
                                     <tr>
                                         <th>NO</th>
-                                        <th>JUDUL</th>
-                                        <th>MENU</th>
-                                        <th>ACTIVE</th>
-                                        <th>ACTION</th>
+                                        <th>USERNAME</th>
+                                        <th>NAMA</th>
+                                        <th>IMAGE</th>
+                                        <th>NO HP</th>
+                                        <th>ROLE</th>
+                                        <th>STATUS</th>
+                                        <th>AKSI</th>
                                 </thead>
 
                                 <tbody>
                                     <?php $i = 1;
-                                    foreach ($submenu as $sm) : ?>
+                                    foreach ($getuser as $u) : ?>
                                         <tr>
                                             <td><?= $i; ?></td>
-                                            <td> <?= $sm['judul']; ?></td>
-                                            <td> <?= $sm['menu']; ?></td>
-                                            <td>
-                                                <?php if ($sm['is_active'] == 1) : ?>
-                                                    <span class="badge badge-success">Aktif</span>
-                                                <?php else : ?>
-                                                    <span class="badge badge-danger">Non Aktif</span>
-                                                <?php endif; ?>
-                                            </td>
+                                            <td><?= $u['email']; ?></td>
+                                            <td><?= $u['nama']; ?></td>
+                                            <td><?= $u['image']; ?></td>
+                                            <td><?= $u['no_hp']; ?></td>
+                                            <td><?= $u['role']; ?></td>
+                                            <td> <span class="badge badge-pill badge-success">Aktif</span></td>
                                             <td>
 
                                                 <button type="button" class="btn btn-warning btn-sm waves-effect btn-label waves-light"><i class="bx bx-edit label-icon "></i> Edit</button>
-                                                <a href="<?= base_url('menu/delete_submenu/') . $sm['id']; ?>" type="button" class="btn btn-danger btn-sm waves-effect btn-label waves-light"><i class="bx bx-trash-alt label-icon "></i> Delete</a>
+                                                <!-- <a href="<?= base_url('menu/delete_submenu/') . $sm['id']; ?>" type="button" class="btn btn-danger btn-sm waves-effect btn-label waves-light"><i class="bx bx-trash-alt label-icon "></i> Delete</a> -->
 
                                             </td>
                                         </tr>
-
                                     <?php $i++;
                                     endforeach; ?>
+
                                 </tbody>
                             </table>
 
@@ -85,31 +85,32 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <form action="<?= base_url('menu/submenu'); ?>" method="post">
+                    <form action="<?= base_url('administrator/adduser'); ?>" method="post">
                         <div class="form-group">
-                            <label>Judul</label>
-                            <input type="text" class="form-control" name="judul" required placeholder="JUDUL">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" required placeholder="EMAIL">
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Pilih Menu</label>
-                            <select class="form-control select2" name="menu_id" required>
+                            <label>Nama</label>
+                            <input type="text" class="form-control" name="nama" required placeholder="NAMA">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="text" class="form-control" name="password" required placeholder="Password">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Pilih Role</label>
+                            <select class="form-control select2" name="role_id" required>
                                 <option>Select</option>
-                                <?php foreach ($menu as $m) : ?>
-                                    <option value="<?= $m['id'] ?>"><?= $m['menu'] ?></option>
+                                <?php foreach ($role as $r) : ?>
+                                    <option value="<?= $r['id'] ?>"><?= $r['role'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Url</label>
-                            <input type="text" class="form-control" name="url" required placeholder="URL">
-                        </div>
-                        <div class="form-group">
-                            <label>Icon</label>
-                            <input type="text" class="form-control" name="icon" required placeholder="ICON">
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="is_active" name="is_active" value="1" checked>
-                            <label class="custom-control-label" for="is_active">Aktif</label>
+                            <label>No HP</label>
+                            <input type="text" class="form-control" name="no_hp" required placeholder="No HP">
                         </div>
                         <div class="form-group">
                             <div class="modal-footer">

@@ -1,6 +1,62 @@
 <!-- ============================================================== -->
 <!-- Start right Content here -->
 <!-- ============================================================== -->
+<style>
+    .popup {
+        width: 60px;
+        margin: auto;
+        text-align: left
+    }
+
+    .popup img {
+        width: 50px;
+        height: 50px;
+        cursor: pointer
+    }
+
+    .show {
+        z-index: 999;
+        display: none;
+    }
+
+    .show .overlay {
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .66);
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .show .img-show {
+        width: 600px;
+        height: 400px;
+        background: #FFF;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        overflow: hidden
+    }
+
+    .img-show span {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 99;
+        cursor: pointer;
+    }
+
+    .img-show img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    /*End style*/
+</style>
 <div class="main-content">
 
     <div class="page-content">
@@ -113,6 +169,8 @@
                                             <td>
                                                 <?php if ($b['status_pembayaran'] === 'Berhasil') : ?>
                                                     <span class="badge badge-success"><?= $b['status_pembayaran']; ?></span>
+                                                <?php elseif ($b['status_pembayaran'] === 'Gagal') : ?>
+                                                    <span class="badge badge-danger"><?= $b['status_pembayaran']; ?></span>
                                                 <?php else : ?>
                                                     <span class="badge badge-warning"><?= $b['status_pembayaran']; ?></span>
                                                 <?php endif; ?>
@@ -122,13 +180,16 @@
                                                     <a href="<?= base_url('transaksi/view_invoice/') . $b['id']; ?>" type="button" class="btn btn-success btn-sm waves-effect waves-light">
                                                         <i class="bx bx-printer font-size-16 align-middle mr-2"></i> Invoice
                                                     </a>
+                                                <?php elseif ($b['status_pembayaran'] === 'Gagal') : ?>
+                                                    <p></p>
+
                                                 <?php else : ?>
                                                     <a href="<?= base_url('transaksi/terima/') . $b['id']; ?>" class="btn btn-success btn-sm waves-effect waves-light">
                                                         <i class="bx bx-check-double font-size-16 align-middle mr-2"></i> Terima
                                                     </a>
-                                                    <button type="button" class="btn btn-danger btn-sm waves-effect waves-light">
+                                                    <a href="<?= base_url('transaksi/tolak/') . $b['id']; ?>" type="button" class="btn btn-danger btn-sm waves-effect waves-light">
                                                         <i class="bx bx-block font-size-16 align-middle mr-2"></i> Tolak
-                                                    </button>
+                                                    </a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>

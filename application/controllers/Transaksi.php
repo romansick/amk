@@ -42,6 +42,25 @@ class Transaksi extends CI_Controller
         );
         redirect('transaksi'); // Produces: INSERT INTO mytable (`name`) VALUES ('{$name}')
     }
+    public function tolak($id)
+    {
+        $status_pembayaran = 'Gagal';
+
+        $this->db->set('status_pembayaran', $status_pembayaran);
+        $this->db->where('id', $id);
+        $this->db->update('metode_bayar');
+        $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+                    <i class="mdi mdi-check-all mr-2"></i>
+                        Pembayaran Berhasil Ditolak
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>'
+        );
+        redirect('transaksi'); // Produces: INSERT INTO mytable (`name`) VALUES ('{$name}')
+    }
     public function view_invoice($id)
     {
         $data['title'] = 'Invoice';

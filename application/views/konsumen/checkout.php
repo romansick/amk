@@ -33,7 +33,7 @@
 
                                     <div class="d-flex align-items-center justify-content-between mb-3">
                                         <h4 class="card-title">Metode Pembayaran: <?= $check['metode']; ?></h4>
-                                        <?php if ($order['metode'] === 'Tunai') : ?>
+                                        <?php if ($order['metode'] == 'Tunai') : ?>
                                             <p></p>
                                         <?php else : ?>
                                             <div>
@@ -291,29 +291,16 @@
 
 </div> <!-- container-fluid -->
 </div>
-<!-- End Page-content -->
-<script src="<?= base_url('assets/js/jquery-3.6.0.js'); ?>"></script>
-<script>
-    $('.customs-file-input').on('change', function() {
-        let fileName = $(this).val().split('\\').pop();
-        $(this).next('.custom-file-label').addClass("selected").html(fileName);
-    });
-</script>
-<script src="<?= base_url('assets/jquery/jquery-3.5.1.min.js'); ?>"></script>
-<script src="<?= base_url('assets/jquery/jquery.validate.min.js'); ?>"></script>
-<script src="<?= base_url('assets/bootstrap/js/bootstrap.min.js'); ?>"></script>
-<script src="<?= base_url('assets/numeraljs/numeral.min.js'); ?>"></script>
-<script src="<?= base_url('assets/custom.js'); ?>"></script>
-
-
 <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <form action="<?= base_url('administrator/bank'); ?>" method="post">
+                <form action="<?= base_url('konsumen/buktibayarkpr'); ?>" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<?= $order['id']; ?>">
                     <div class="form-group">
                         <label>Upload Bukti Pembayaran</label><br>
-                        <input type="file" class="form-control form-control-lg" name="image" required placeholder="Bukti Bayar">
+                        <input type="file" class="form-control customs-file-input" name="image" id="image" placeholder="Bukti Pembayaran" required>
+                        <!-- <label class="custom-file-label opacity-0" for="image"> Select File </label> -->
                     </div>
 
                     <div class="form-group">
@@ -327,3 +314,16 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+<!-- End Page-content -->
+<script src="<?= base_url('assets/js/jquery-3.6.0.js'); ?>"></script>
+<script>
+    $('.customs-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
+</script>
+<script src="<?= base_url('assets/jquery/jquery-3.5.1.min.js'); ?>"></script>
+<script src="<?= base_url('assets/jquery/jquery.validate.min.js'); ?>"></script>
+<script src="<?= base_url('assets/bootstrap/js/bootstrap.min.js'); ?>"></script>
+<script src="<?= base_url('assets/numeraljs/numeral.min.js'); ?>"></script>
+<script src="<?= base_url('assets/custom.js'); ?>"></script>

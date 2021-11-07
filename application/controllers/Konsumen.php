@@ -202,4 +202,41 @@ class Konsumen extends CI_Controller
         );
         redirect('konsumen/transaksi');
     }
+    public function buktibayarkpr()
+    {
+        $tanggal_bayar = time();
+        // cek jika ada gambar yang akan diupload
+        $upload_image = $_FILES['image']['name'];
+
+        if ($upload_image) {
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size']      = '5048';
+            $config['upload_path'] = './bukti/';
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('image')) {
+                $new_image = $this->upload->data('file_name');
+                $this->db->set('image', $new_image);
+            } else {
+                echo $this->upload->display_errors();
+            }
+        }
+        $this->db->set('tanggal_bayar', $tanggal_bayar);
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('metode_bayar');
+
+
+        $this->session->set_flashdata(
+            'message',
+            '<div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+                    <i class="mdi mdi-check-all mr-2"></i>
+                    Bukti Pembayaran KPR Berhasil Diupload
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>'
+        );
+        redirect('konsumen/transaksi');
+    }
 }
