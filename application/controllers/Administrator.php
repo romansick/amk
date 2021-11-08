@@ -7,11 +7,13 @@ class Administrator extends CI_Controller
     {
         parent::__construct();
         cek_login();
+        $this->load->model('Admin_model');
     }
 
     public function index()
     {
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['tipe'] = $this->Admin_model->countRumah();
 
         $data['title'] = 'Dashboard';
 

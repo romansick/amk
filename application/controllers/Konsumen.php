@@ -138,6 +138,7 @@ class Konsumen extends CI_Controller
         $harga_rumah = $this->input->post('harga_rumah');
         $total     = 1;
         $rumah_id  = $this->input->post('rumah_id');
+        $tipe_id  = $this->input->post('tipe_id');
         $status_pembayaran     = 'Pending';
         $date_created = time();
 
@@ -147,6 +148,7 @@ class Konsumen extends CI_Controller
         $this->db->set('harga_rumah', $harga_rumah);
         $this->db->set('total', $total);
         $this->db->set('rumah_id', $rumah_id);
+        $this->db->set('tipe_id', $tipe_id);
         $this->db->set('status_pembayaran', $status_pembayaran);
         $this->db->set('date_created', $date_created);
 

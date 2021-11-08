@@ -9,7 +9,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description">
     <meta content="Themesbrand" name="author">
     <!-- App favicon -->
-    <link rel="shortcut icon" href="<?= base_url('assets\images\favicon.ico'); ?>">
+    <link rel="shortcut icon" href="<?= base_url('assets/logo.png'); ?>">
 
     <link href="<?= base_url('assets\libs\bootstrap-touchspin\jquery.bootstrap-touchspin.min.css'); ?>" rel="stylesheet">
     <!-- DataTables -->

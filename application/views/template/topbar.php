@@ -8,21 +8,25 @@
                 <div class="d-flex">
                     <!-- LOGO -->
                     <div class="navbar-brand-box">
-                        <a href="index.html" class="logo logo-dark">
+                        <a href="#" class="logo logo-dark">
                             <span class="logo-sm">
-                                <img src="<?= base_url('assets\images\profile-img.png'); ?>" alt="" height="22">
+                                <!-- <img src="<?= base_url('assets\images\profile-img.png'); ?>" alt="" height="22"> -->
+                                <h2 class="text-info mt-3">A</h2>
                             </span>
                             <span class="logo-lg">
-                                <img src="<?= base_url('assets\images\profile-img.png'); ?>" alt="" height="17">
+                                <!-- <img src="<?= base_url('assets\images\profile-img.png'); ?>" alt="" height="17"> -->
+                                <h2 class="text-info mt-3">PT. AMK</h2>
                             </span>
                         </a>
 
-                        <a href="index.html" class="logo logo-light">
+                        <a href="#" class="logo logo-light">
                             <span class="logo-sm">
-                                <img src="<?= base_url('assets\images\profile-img.png'); ?>" alt="" height="22">
+                                <!-- <img src="<?= base_url('assets\images\profile-img.png'); ?>" alt="" height="22"> -->
+                                <h2 class="text-info mt-3">A</h2>
                             </span>
                             <span class="logo-lg">
-                                <img src="<?= base_url('assets\images\profile-img.png'); ?>" alt="" height="19">
+                                <!-- <img src="<?= base_url('assets\images\profile-img.png'); ?>" alt="" height="19"> -->
+                                <h2 class="text-info mt-3">PT. AMK</h2>
                             </span>
                         </a>
                     </div>

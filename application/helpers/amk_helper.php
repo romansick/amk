@@ -19,6 +19,7 @@ function cek_login()
         if ($userAccess->num_rows() < 1) {
             redirect('auth/blocked');
         }
+        // var_dump($userAccess);
     }
 }
 

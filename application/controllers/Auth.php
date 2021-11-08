@@ -50,6 +50,10 @@ class Auth extends CI_Controller
                         redirect('administrator');
                     } else if ($user['role_id'] == 3) {
                         redirect('konsumen');
+                    } else if ($user['role_id'] == 2) {
+                        redirect('pimpinan');
+                    } else if ($user['role_id'] == 7) {
+                        redirect('keuangan');
                     }
                 } else {
                     $this->session->set_flashdata(

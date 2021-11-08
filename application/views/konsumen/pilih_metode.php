@@ -31,6 +31,7 @@
                                     <input type="hidden" name="user_id" value="<?= $user['id']; ?>">
                                     <input type="hidden" name="kode_transaksi" value="AMKT<?= $rumah['tipe_id']; ?>U<?= $user['id']; ?><?= $rumah['id']; ?>">
                                     <input type="hidden" name="rumah_id" value="<?= $rumah['id']; ?>">
+                                    <input type="hidden" name="tipe_id" value="<?= $rumah['tipe_id']; ?>">
                                     <table class="table table-centered mb-0 table-nowrap">
                                         <thead class="thead-light">
                                             <tr>
