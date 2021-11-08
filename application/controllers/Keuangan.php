@@ -67,4 +67,36 @@ class Keuangan extends CI_Controller
         $this->load->view('keuangan/user', $data);
         $this->load->view('template/footer', $data);
     }
+    public function rumah()
+    {
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $this->load->model('Admin_model');
+
+        $data['title'] = 'Data Rumah';
+        $data['kategori'] = $this->db->get('tipe_rumah')->result_array();
+        $data['lokasi'] = $this->db->get('lokasi_rumah')->result_array();
+        $data['list'] = $this->db->get('list_rumah')->result_array();
+        $data['rumah'] = $this->Admin_model->getRumah();
+
+        $this->load->view('template/head', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('keuangan/rumah', $data);
+        $this->load->view('template/footer', $data);
+    }
+
+    public function detailrumah($id)
+    {
+        $data['title'] = 'Detail Rumah';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->model('Admin_model');
+        $data['rumah'] = $this->Admin_model->countRumahById($id);
+
+        $this->load->view('template/head', $data);
+        $this->load->view('template/topbar', $data);
+        $this->load->view('template/sidebar', $data);
+        $this->load->view('keuangan/detail_rumah', $data);
+        $this->load->view('template/footer', $data);
+    }
 }

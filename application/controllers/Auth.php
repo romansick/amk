@@ -9,9 +9,14 @@ class Auth extends CI_Controller
     }
     public function index()
     {
+        $this->load->model('Auth_model');
+        $this->load->model('Konsumen_model');
+        $data['rumah'] = $this->Konsumen_model->getRumah();
+        $data['tipe'] = $this->db->get('tipe_rumah')->result_array();
+        $data['user'] = $this->Auth_model->getKaryawan();
         $data['title'] = 'AMK';
         $this->load->view('template/header_auth', $data);
-        $this->load->view('auth/index');
+        $this->load->view('auth/index', $data);
         $this->load->view('template/footer_auth');
     }
 
@@ -54,6 +59,8 @@ class Auth extends CI_Controller
                         redirect('pimpinan');
                     } else if ($user['role_id'] == 7) {
                         redirect('keuangan');
+                    } else if ($user['role_id'] == 4) {
+                        redirect('administrasi');
                     }
                 } else {
                     $this->session->set_flashdata(
